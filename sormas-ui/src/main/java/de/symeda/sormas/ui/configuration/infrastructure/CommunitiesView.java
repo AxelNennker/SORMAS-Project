@@ -54,6 +54,7 @@ import de.symeda.sormas.ui.configuration.infrastructure.components.SearchField;
 import de.symeda.sormas.ui.utils.ButtonHelper;
 import de.symeda.sormas.ui.utils.CssStyles;
 import de.symeda.sormas.ui.utils.FieldHelper;
+import de.symeda.sormas.ui.utils.GridCSVInputStream;
 import de.symeda.sormas.ui.utils.GridExportStreamResource;
 import de.symeda.sormas.ui.utils.MenuBarHelper;
 import de.symeda.sormas.ui.utils.RowCount;
@@ -122,10 +123,8 @@ public class CommunitiesView extends AbstractConfigurationView {
 			addHeaderComponent(exportButton);
 
 			StreamResource streamResource = new GridExportStreamResource(
-				grid,
-				"sormas_communities",
-				"sormas_communities_" + DateHelper.formatDateForExport(new Date()) + ".csv",
-				CommunitiesGrid.EDIT_BTN_ID);
+				new GridCSVInputStream(grid, CommunitiesGrid.EDIT_BTN_ID),
+				"sormas_communities_" + DateHelper.formatDateForExport(new Date()) + ".csv");
 			FileDownloader fileDownloader = new FileDownloader(streamResource);
 			fileDownloader.extend(exportButton);
 		}

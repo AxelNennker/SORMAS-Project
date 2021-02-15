@@ -19,6 +19,7 @@ package de.symeda.sormas.ui.samples;
 
 import java.util.Date;
 
+import de.symeda.sormas.ui.utils.GridCSVInputStream;
 import org.vaadin.hene.popupbutton.PopupButton;
 
 import com.vaadin.icons.VaadinIcons;
@@ -103,10 +104,8 @@ public class SamplesView extends AbstractView {
 			exportLayout.addComponent(basicExportButton);
 
 			StreamResource streamResource = new GridExportStreamResource(
-				sampleListComponent.getGrid(),
-				"sormas_samples",
-				"sormas_samples_" + DateHelper.formatDateForExport(new Date()) + ".csv",
-				SampleGrid.EDIT_BTN_ID);
+				new GridCSVInputStream(sampleListComponent.getGrid(),SampleGrid.EDIT_BTN_ID),
+				"sormas_samples_" + DateHelper.formatDateForExport(new Date()) + ".csv");
 			FileDownloader fileDownloader = new FileDownloader(streamResource);
 			fileDownloader.extend(basicExportButton);
 

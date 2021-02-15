@@ -56,6 +56,7 @@ import de.symeda.sormas.ui.configuration.infrastructure.components.SearchField;
 import de.symeda.sormas.ui.utils.ButtonHelper;
 import de.symeda.sormas.ui.utils.CssStyles;
 import de.symeda.sormas.ui.utils.FieldHelper;
+import de.symeda.sormas.ui.utils.GridCSVInputStream;
 import de.symeda.sormas.ui.utils.GridExportStreamResource;
 import de.symeda.sormas.ui.utils.MenuBarHelper;
 import de.symeda.sormas.ui.utils.RowCount;
@@ -130,10 +131,8 @@ public class FacilitiesView extends AbstractConfigurationView {
 			addHeaderComponent(exportButton);
 
 			StreamResource streamResource = new GridExportStreamResource(
-				grid,
-				"sormas_facilities",
-				"sormas_facilities_" + DateHelper.formatDateForExport(new Date()) + ".csv",
-				FacilitiesGrid.EDIT_BTN_ID);
+				new GridCSVInputStream(grid, FacilitiesGrid.EDIT_BTN_ID),
+				"sormas_facilities_" + DateHelper.formatDateForExport(new Date()) + ".csv");
 			FileDownloader fileDownloader = new FileDownloader(streamResource);
 			fileDownloader.extend(exportButton);
 		}

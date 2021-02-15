@@ -25,6 +25,7 @@ import java.util.function.Consumer;
 import javax.naming.NamingException;
 
 import de.symeda.sormas.api.user.UserDto;
+import de.symeda.sormas.ui.utils.GridCSVInputStream;
 import org.vaadin.hene.popupbutton.PopupButton;
 
 import com.vaadin.icons.VaadinIcons;
@@ -165,7 +166,8 @@ public class CampaignDataView extends AbstractCampaignView {
 
 			{
 				StreamResource streamResource =
-					new GridExportStreamResource(grid, "campaign_data", createFileNameWithCurrentDate("campaign_data_", ".csv"), EDIT_BTN_ID);
+					new GridExportStreamResource(
+							new GridCSVInputStream(grid, EDIT_BTN_ID), createFileNameWithCurrentDate("campaign_data_", ".csv"));
 				addExportButton(streamResource, exportPopupButton, exportLayout, VaadinIcons.TABLE, Captions.export, Strings.infoBasicExport);
 			}
 		}

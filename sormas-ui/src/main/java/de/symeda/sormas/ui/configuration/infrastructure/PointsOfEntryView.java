@@ -38,6 +38,7 @@ import de.symeda.sormas.ui.configuration.infrastructure.components.SearchField;
 import de.symeda.sormas.ui.utils.ButtonHelper;
 import de.symeda.sormas.ui.utils.CssStyles;
 import de.symeda.sormas.ui.utils.FieldHelper;
+import de.symeda.sormas.ui.utils.GridCSVInputStream;
 import de.symeda.sormas.ui.utils.GridExportStreamResource;
 import de.symeda.sormas.ui.utils.MenuBarHelper;
 import de.symeda.sormas.ui.utils.RowCount;
@@ -108,10 +109,8 @@ public class PointsOfEntryView extends AbstractConfigurationView {
 			addHeaderComponent(exportButton);
 
 			StreamResource streamResource = new GridExportStreamResource(
-				grid,
-				"sormas_pointsofentry",
-				"sormas_pointsofentry_" + DateHelper.formatDateForExport(new Date()) + ".csv",
-				PointsOfEntryGrid.EDIT_BTN_ID);
+					new GridCSVInputStream(grid,PointsOfEntryGrid.EDIT_BTN_ID),
+				"sormas_pointsofentry_" + DateHelper.formatDateForExport(new Date()) + ".csv");
 			FileDownloader fileDownloader = new FileDownloader(streamResource);
 			fileDownloader.extend(exportButton);
 		}

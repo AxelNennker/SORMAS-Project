@@ -20,6 +20,7 @@ package de.symeda.sormas.ui.events;
 import java.util.Date;
 import java.util.HashMap;
 
+import de.symeda.sormas.ui.utils.GridCSVInputStream;
 import org.vaadin.hene.popupbutton.PopupButton;
 
 import com.vaadin.icons.VaadinIcons;
@@ -164,7 +165,7 @@ public class EventsView extends AbstractView {
 
 			{
 				StreamResource streamResource =
-					new GridExportStreamResource(grid, "sormas_events", "sormas_events_" + DateHelper.formatDateForExport(new Date()) + ".csv");
+					new GridExportStreamResource(new GridCSVInputStream(grid), "sormas_events_" + DateHelper.formatDateForExport(new Date()) + ".csv");
 				addExportButton(streamResource, exportPopupButton, exportLayout, VaadinIcons.TABLE, Captions.exportBasic, Strings.infoBasicExport);
 			}
 
