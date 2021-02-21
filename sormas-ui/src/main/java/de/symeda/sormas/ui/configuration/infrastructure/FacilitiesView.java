@@ -17,6 +17,7 @@
  *******************************************************************************/
 package de.symeda.sormas.ui.configuration.infrastructure;
 
+import java.util.Collections;
 import java.util.Date;
 
 import com.vaadin.icons.VaadinIcons;
@@ -131,7 +132,7 @@ public class FacilitiesView extends AbstractConfigurationView {
 			addHeaderComponent(exportButton);
 
 			StreamResource streamResource = new GridExportStreamResource(
-				new GridCSVInputStream(grid, FacilitiesGrid.EDIT_BTN_ID),
+				new GridCSVInputStream(grid, Collections.singletonList(FacilitiesGrid.EDIT_BTN_ID)),
 				"sormas_facilities_" + DateHelper.formatDateForExport(new Date()) + ".csv");
 			FileDownloader fileDownloader = new FileDownloader(streamResource);
 			fileDownloader.extend(exportButton);

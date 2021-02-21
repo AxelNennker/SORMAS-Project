@@ -18,11 +18,10 @@ package de.symeda.sormas.ui.campaign.campaigndata;
 import static de.symeda.sormas.ui.utils.FilteredGrid.EDIT_BTN_ID;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
-
-import javax.naming.NamingException;
 
 import de.symeda.sormas.api.user.UserDto;
 import de.symeda.sormas.ui.utils.GridCSVInputStream;
@@ -38,11 +37,6 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
-import org.vaadin.hene.popupbutton.PopupButton;
-
-import com.vaadin.icons.VaadinIcons;
-import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
-import com.vaadin.server.StreamResource;
 import com.vaadin.ui.themes.ValoTheme;
 import com.vaadin.v7.ui.OptionGroup;
 
@@ -167,7 +161,8 @@ public class CampaignDataView extends AbstractCampaignView {
 			{
 				StreamResource streamResource =
 					new GridExportStreamResource(
-							new GridCSVInputStream(grid, EDIT_BTN_ID), createFileNameWithCurrentDate("campaign_data_", ".csv"));
+							new GridCSVInputStream(grid, Collections.singletonList(EDIT_BTN_ID)),
+							createFileNameWithCurrentDate("campaign_data_", ".csv"));
 				addExportButton(streamResource, exportPopupButton, exportLayout, VaadinIcons.TABLE, Captions.export, Strings.infoBasicExport);
 			}
 		}

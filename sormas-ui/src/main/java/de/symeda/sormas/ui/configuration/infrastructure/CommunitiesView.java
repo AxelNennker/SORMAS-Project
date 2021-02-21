@@ -17,6 +17,7 @@
  *******************************************************************************/
 package de.symeda.sormas.ui.configuration.infrastructure;
 
+import java.util.Collections;
 import java.util.Date;
 
 import com.vaadin.icons.VaadinIcons;
@@ -123,7 +124,7 @@ public class CommunitiesView extends AbstractConfigurationView {
 			addHeaderComponent(exportButton);
 
 			StreamResource streamResource = new GridExportStreamResource(
-				new GridCSVInputStream(grid, CommunitiesGrid.EDIT_BTN_ID),
+				new GridCSVInputStream(grid, Collections.singletonList(CommunitiesGrid.EDIT_BTN_ID)),
 				"sormas_communities_" + DateHelper.formatDateForExport(new Date()) + ".csv");
 			FileDownloader fileDownloader = new FileDownloader(streamResource);
 			fileDownloader.extend(exportButton);

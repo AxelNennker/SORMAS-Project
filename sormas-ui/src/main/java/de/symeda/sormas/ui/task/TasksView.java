@@ -17,6 +17,7 @@
  *******************************************************************************/
 package de.symeda.sormas.ui.task;
 
+import java.util.Collections;
 import java.util.Date;
 
 import com.vaadin.icons.VaadinIcons;
@@ -72,7 +73,7 @@ public class TasksView extends AbstractView {
 			addHeaderComponent(basicExportButton);
 
 			StreamResource streamResource = new GridExportStreamResource(
-					new GridCSVInputStream(taskListComponent.getGrid(), TaskGrid.EDIT_BTN_ID),
+					new GridCSVInputStream(taskListComponent.getGrid(), Collections.singletonList(TaskGrid.EDIT_BTN_ID)),
 				"sormas_tasks_" + DateHelper.formatDateForExport(new Date()) + ".csv");
 			FileDownloader fileDownloader = new FileDownloader(streamResource);
 			fileDownloader.extend(basicExportButton);

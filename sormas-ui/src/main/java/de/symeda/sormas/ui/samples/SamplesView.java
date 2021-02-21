@@ -17,6 +17,7 @@
  *******************************************************************************/
 package de.symeda.sormas.ui.samples;
 
+import java.util.Collections;
 import java.util.Date;
 
 import de.symeda.sormas.ui.utils.GridCSVInputStream;
@@ -104,7 +105,7 @@ public class SamplesView extends AbstractView {
 			exportLayout.addComponent(basicExportButton);
 
 			StreamResource streamResource = new GridExportStreamResource(
-				new GridCSVInputStream(sampleListComponent.getGrid(),SampleGrid.EDIT_BTN_ID),
+				new GridCSVInputStream(sampleListComponent.getGrid(), Collections.singletonList(SampleGrid.EDIT_BTN_ID)),
 				"sormas_samples_" + DateHelper.formatDateForExport(new Date()) + ".csv");
 			FileDownloader fileDownloader = new FileDownloader(streamResource);
 			fileDownloader.extend(basicExportButton);

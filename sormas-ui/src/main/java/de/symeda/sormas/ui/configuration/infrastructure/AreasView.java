@@ -2,6 +2,7 @@ package de.symeda.sormas.ui.configuration.infrastructure;
 
 import static com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 
+import java.util.Collections;
 import java.util.Date;
 
 import com.vaadin.icons.VaadinIcons;
@@ -94,7 +95,7 @@ public class AreasView extends AbstractConfigurationView {
 			addHeaderComponent(btnExport);
 
 			StreamResource streamResource = new GridExportStreamResource(
-				new GridCSVInputStream(grid, AreasGrid.EDIT_BTN_ID),
+				new GridCSVInputStream(grid, Collections.singletonList(AreasGrid.EDIT_BTN_ID)),
 				"sormas_areas_" + DateHelper.formatDateForExport(new Date()) + ".csv");
 			FileDownloader fileDownloader = new FileDownloader(streamResource);
 			fileDownloader.extend(btnExport);

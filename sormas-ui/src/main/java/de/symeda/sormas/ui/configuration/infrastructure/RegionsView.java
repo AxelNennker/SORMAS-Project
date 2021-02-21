@@ -17,6 +17,7 @@
  *******************************************************************************/
 package de.symeda.sormas.ui.configuration.infrastructure;
 
+import java.util.Collections;
 import java.util.Date;
 
 import com.vaadin.icons.VaadinIcons;
@@ -114,7 +115,7 @@ public class RegionsView extends AbstractConfigurationView {
 			addHeaderComponent(exportButton);
 
 			StreamResource streamResource = new GridExportStreamResource(
-					new GridCSVInputStream(grid,RegionsGrid.EDIT_BTN_ID),
+					new GridCSVInputStream(grid, Collections.singletonList(RegionsGrid.EDIT_BTN_ID)),
 				"sormas_regions_" + DateHelper.formatDateForExport(new Date()) + ".csv");
 			FileDownloader fileDownloader = new FileDownloader(streamResource);
 			fileDownloader.extend(exportButton);
