@@ -1,0 +1,13 @@
+order: App, eID-connector, eID-Server, Sormas APIApp -->> Sormas API: _Login_
+App -->> App: _Person Data Screen_
+App --> Sormas API: get jwt for eID-connector access
+App --> eID-connector: Use SmartCredentials to send tcTokenUrl+jwteID-connector --> App: redirect SAMLRequest to eID-Server
+App --> eID-Server: forward SAMLRequest
+App --> eID-Server: _on-site reading_
+App -->> App: _Enter CAN_ and attach eID
+eID-Server --> App: redirect SAMLResponse to eID-connector
+App --> eID-connector: forward SAMLResponse
+eID-connector <-> eID-Server: Get Customer Data
+eID-connector -> App: Customer Data
+App -->> App: Fill data into Person Data Screen
+App -> Sormas API: Send Customer Data
