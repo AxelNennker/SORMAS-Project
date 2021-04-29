@@ -7,9 +7,9 @@
 ' LAYOUT_AS_SKETCH()
 LAYOUT_WITH_LEGEND()
 
-title Container Diagram for Sormas
+title Container Diagram with eID for Sormas
 
-Person(sormas_user, "Health Authority Staff", "A user authoritzed by the health authority to enter data")
+Person(sormas_user, "Health Authority Staff", "A user authorized by the health authority to enter data")
 Person_Ext(sormas_person, "Person", "A Person who is a contact or infected")
 
 System_Boundary(c1, "Sormas") {

@@ -8,7 +8,7 @@ LAYOUT_WITH_LEGEND()
 
 title System Context diagram for Sormas
 
-Person(sormas_user, "Health Authority Staff", "A user authoritzed by the health authority to enter data")
+Person(sormas_user, "Health Authority Staff", "A user authorized by the health authority to enter data")
 Person_Ext(sormas_person, "Person", "A Person who is a contact or infected")
 System(sormas_web, "Sormas Web", "All the Sormas UI elements")
 System(sormas_android, "Sormas Android App", "The Sormas UI in an Android App")
