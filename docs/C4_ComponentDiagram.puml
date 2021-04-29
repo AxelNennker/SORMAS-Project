@@ -1,0 +1,27 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component diagram for Sormas - API Application
+
+Container(sormas_android, "Mobile App", "Android", "Provides a limited subset ot the Sormas functionality to users via their mobile mobile device.")
+ContainerDb(db_iam, "Database", "Relational Database Schema", "Stores user registration information, hashed authentication credentials, access logs, etc.")
+ContainerDb(database, "Database", "SQL Database", "Stores all the Sormas data like Person, Case, Event, etc.")
+
+Container_Boundary(api, "Sormas Backend") {
+    Component(sign, "Sign In Controller", "Keycloak", "Allows users to sign in to Sormas")
+    Component(case_constroller, "Case Controller", "MVC Rest Controller", "Provides customers with a summary of their bank accounts")
+    Component(security, "Security Component", "Spring Bean", "Provides functionality related to singing in, changing passwords, etc.")
+    Container(sormas_api, "API Application", "Java", "Provides Sormas Api via Rest calls")
+
+    Rel(sign, security, "Uses")
+    Rel(case_constroller, sormas_api, "Uses")
+    Rel(security, db_iam, "Read & write to", "JDBC")
+}
+
+Rel(sormas_android, sign, "Uses", "JSON/HTTPS")
+Rel(sormas_android, case_constroller, "Uses", "JSON/HTTPS")
+@enduml

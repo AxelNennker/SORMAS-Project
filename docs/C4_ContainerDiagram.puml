@@ -1,0 +1,38 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Container.puml
+
+' LAYOUT_TOP_DOWN()
+' LAYOUT_AS_SKETCH()
+LAYOUT_WITH_LEGEND()
+
+title Container Diagram for Sormas
+
+Person(sormas_user, "Health Authority Staff", "A user authoritzed by the health authority to enter data")
+Person_Ext(sormas_person, "Person", "A Person who is a contact or infected")
+
+System_Boundary(c1, "Sormas") {
+    Container(sormas_web, "Web Application", "Java, Vaadin8", "Delivers all the Browser UI")
+    Container(sormas_android, "Mobile App", "Android", "Provides the Sormas UI in an Android App")
+    ContainerDb(database, "Database", "SQL Database", "Stores all the Sormas data like Person, Case, Event, etc.")
+    Container(sormas_api, "API Application", "Java", "Provides Sormas Api via Rest calls")
+}
+
+System_Ext(email_system, "E-mail system", "")
+System_Ext(rki, "RKI", "Receives all the case data etc from this health authority")
+System_Ext(other_sormas, "Other Sormas", "Send and receive cases and person data to and from other Sormas instances")
+
+Rel(sormas_user, sormas_web, "Uses", "HTTPS")
+Rel(sormas_user, sormas_android, "Uses", "HTTPS")
+
+Rel(sormas_android, sormas_api, "Uses", "JSON/HTTPS")
+Rel(sormas_web, sormas_api, "Uses", "JSON/HTTPS")
+Rel_Back_Neighbor(database, sormas_api, "Reads from and writes to")
+
+Rel_Back(sormas_user, email_system, "Sends e-mails to")
+Rel_Back(email_system, sormas_api, "Sends e-mails using", "SMTP")
+Rel_Neighbor(sormas_api, rki, "Uses", "SurvNet")
+Rel(sormas_api, other_sormas, "send data", "Sormas2Sormas")
+
+@enduml

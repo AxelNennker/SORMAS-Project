@@ -1,0 +1,29 @@
+@startuml
+scale max 1024*768
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Context.puml
+
+LAYOUT_WITH_LEGEND()
+
+title System Context diagram for Sormas
+
+Person(sormas_user, "Health Authority Staff", "A user authoritzed by the health authority to enter data")
+Person_Ext(sormas_person, "Person", "A Person who is a contact or infected")
+System(sormas_web, "Sormas Web", "All the Sormas UI elements")
+System(sormas_android, "Sormas Android App", "The Sormas UI in an Android App")
+System(sormas_api, "Sormas Rest API", "Allows the Sormas user to create cases, contacts, events etc")
+
+System_Ext(mail_system, "E-mail system", "")
+System_Ext(rki, "RKI", "Receives all the case data etc from this health authority")
+System_Ext(other_sormas, "Other Sormas", "Send and receive cases and person data to and from other Sormas instances")
+
+Rel(sormas_user, sormas_web, "Uses")
+Rel(sormas_user, sormas_android, "Uses")
+Rel_Back(sormas_user, mail_system, "Sends e-mails to")
+Rel_Neighbor(sormas_api, mail_system, "Sends e-mails", "SMTP")
+Rel(sormas_api, rki, "send data",  "Survnet")
+Rel(sormas_api, other_sormas, "send data", "Sormas2Sormas")
+Rel(sormas_web, sormas_api, "make Rest calls")
+Rel(sormas_android, sormas_api, "make Rest calls")
+@enduml

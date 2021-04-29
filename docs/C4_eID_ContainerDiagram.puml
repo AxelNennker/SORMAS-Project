@@ -1,0 +1,37 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Container.puml
+
+' LAYOUT_TOP_DOWN()
+' LAYOUT_AS_SKETCH()
+LAYOUT_WITH_LEGEND()
+
+title Container Diagram for Sormas
+
+Person(sormas_user, "Health Authority Staff", "A user authoritzed by the health authority to enter data")
+Person_Ext(sormas_person, "Person", "A Person who is a contact or infected")
+
+System_Boundary(c1, "Sormas") {
+    Container(sormas_web, "Web Application", "Java, Vaadin8", "Delivers all the Browser UI")
+    Container(sormas_android, "Mobile App", "Android", "Provides the Sormas UI in an Android App")
+    ContainerDb(database, "Database", "SQL Database", "Stores all the Sormas data like Person, Case, Event, etc.")
+    Container(sormas_api, "API Application", "Java", "Provides Sormas Api via Rest calls")
+}
+
+System_Ext(eid_server, "eID Server", "Hold the authorization certificate, implements BSI TR-3110")
+System_Ext(eid_connector, "eID Connector", "eService")
+
+Rel(sormas_user, sormas_web, "Uses", "HTTPS")
+Rel(sormas_user, sormas_android, "Uses", "HTTPS")
+
+Rel(sormas_android, sormas_api, "Uses", "JSON/HTTPS")
+Rel(sormas_web, sormas_api, "Uses", "JSON/HTTPS")
+Rel_Back_Neighbor(database, sormas_api, "Reads from and writes to")
+
+Rel(eid_connector, "sormas_api", "send data", "HTTPS/JSON person data")
+Rel(eid_connector, eid_server, "send data", "HTTPS redirect")
+Rel(sormas_android, eid_server, "send data", "SmartCredentials, eCard API")
+Rel(sormas_android, eid_connector, "send data", "tcTokenURL")
+
+@enduml
